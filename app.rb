@@ -20,7 +20,7 @@ get '/test_hipchat' do
   hipchat_client[hipchat_room_id].send(hipchat_username, 'Hello!')
 end
 
-get '/post_build_result' do
+post '/build_result' do
   puts params
   sha = params['sha']
   state = params['state']
