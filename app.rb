@@ -24,9 +24,9 @@ end
 
 post '/github_callback' do
   payload = JSON.parse(params[:payload])
+  puts "payload.keys #{payload.keys}"
+  pull_request = payload['pull_request']
   if pull_request['state'] == 'open'
-    puts "payload.keys #{payload.keys}"
-    pull_request = payload['pull_request']
     puts "pull_request.keys #{pull_request.keys}"
     head = pull_request['head']
     puts "head #{head}"
