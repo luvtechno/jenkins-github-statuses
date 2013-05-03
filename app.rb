@@ -44,7 +44,7 @@ post '/github_callback' do
     sha = head['sha']
 
     build_result = Redis::HashKey.new(sha)
-    if sha_status
+    if build_result
       state = build_result['state']
       target_url = build_result['target_ur;']
     else
