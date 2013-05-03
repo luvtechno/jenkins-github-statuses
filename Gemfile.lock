@@ -28,6 +28,9 @@ GEM
     rack (1.5.2)
     rack-protection (1.5.0)
       rack
+    redis (3.0.4)
+    redis-objects (0.7.0)
+      redis (>= 3.0.2)
     sinatra (1.4.2)
       rack (~> 1.5, >= 1.5.2)
       rack-protection (~> 1.4)
@@ -41,4 +44,5 @@ DEPENDENCIES
   hipchat
   json
   octokit
+  redis-objects
   sinatra

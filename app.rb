@@ -10,6 +10,8 @@ repo_owner = ENV['GITHUB_REPO_OWNER']
 repo_name = ENV['GITHUB_REPO_NAME']
 repo = Octokit::Repository.new(owner: repo_owner, name: repo_name)
 
+Redis.current = Redis.new( url: ENV['REDISCLOUD_URL'] )
+
 get '/' do
   puts "Hello World!"
 end
@@ -31,7 +33,14 @@ post '/github_callback' do
     head = pull_request['head']
     puts "head #{head}"
     sha = head['sha']
-    state = 'pending'
+
+    build_result = Redis::HashKey.new(sha)
+    if sha_status
+      state = build_result['state']
+    else
+      state = 'pending'
+    end
+
     client.create_status(repo, sha, state)
   end
 end
