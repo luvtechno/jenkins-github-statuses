@@ -44,7 +44,7 @@ post '/github_callback' do
     sha = head['sha']
 
     build_result = Redis::HashKey.new(sha)
-    state = build_result['state'] || pending
+    state = build_result['state'] || 'pending'
     target_url = build_result['target_url']
 
     client.create_status(repo, sha, state, target_url: target_url)
