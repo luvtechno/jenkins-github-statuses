@@ -24,11 +24,13 @@ end
 
 post '/github_callback' do
   payload = JSON.parse(params[:payload])
-  puts "payload.keys #{payload.keys}"
-  pull_request = payload['pull_request']
-  puts "pull_request.keys #{pull_request.keys}"
   if pull_request['state'] == 'open'
-    sha = pull_request['head']['sha']
+    puts "payload.keys #{payload.keys}"
+    pull_request = payload['pull_request']
+    puts "pull_request.keys #{pull_request.keys}"
+    head = pull_request['head']
+    puts "head #{head}"
+    sha = head['sha']
     state = 'pending'
     client.create_status(repo, sha, state)
   end
