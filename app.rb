@@ -8,7 +8,7 @@ hipchat_client = HipChat::Client.new(hipchat_api_token)
 client = Octokit::Client.new(oauth_token: ENV['GITHUB_TOKEN'])
 repo_owner = ENV['GITHUB_REPO_OWNER']
 repo_name = ENV['GITHUB_REPO_NAME']
-repo = Octokit::Repository.new(owner: repo_owner. name: repo_name)
+repo = Octokit::Repository.new(owner: repo_owner, name: repo_name)
 
 get '/' do
   puts "Hello World!"
