@@ -23,7 +23,7 @@ end
 get '/post_build_result' do
   puts params
   sha = params['sha']
-  state = params['params']
+  state = params['state']
   target_url = params['target_url']
 
   build_result = Redis::HashKey.new(sha)
