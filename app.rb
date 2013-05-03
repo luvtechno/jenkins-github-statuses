@@ -20,8 +20,17 @@ get '/test_hipchat' do
   hipchat_client[hipchat_room_id].send(hipchat_username, 'Hello!')
 end
 
-get '/post_build' do
+get '/post_build_reuslt' do
   puts params
+  sha = params['sha']
+  state = params['params']
+  target_url = params['target_url']
+
+  build_result = Redis::HashKey.new(sha)
+  build_result['state'] = state
+  build_result['target_url'] = target_url
+
+  client.create_status(repo, sha, state, target_url: target_url)
 end
 
 post '/github_callback' do
@@ -37,10 +46,12 @@ post '/github_callback' do
     build_result = Redis::HashKey.new(sha)
     if sha_status
       state = build_result['state']
+      target_url = build_result['target_ur;']
     else
       state = 'pending'
+      target_url = nil
     end
 
-    client.create_status(repo, sha, state)
+    client.create_status(repo, sha, state, target_url: target_url)
   end
 end
