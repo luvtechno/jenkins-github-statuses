@@ -21,5 +21,7 @@ end
 
 post '/github_callback' do
   payload = JSON.parse(params[:payload])
-  puts payload
+  puts "payload.keys #{payload.keys}"
+  pull_request = payload['pull_request']
+  puts "pull_request.keys #{pull_request.keys}"
 end
