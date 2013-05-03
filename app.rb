@@ -5,6 +5,8 @@ hipchat_room_id = ENV['HIPCHAT_ROOM_ID']
 hipchat_username = ENV['HIPCHAT_USERNAME']
 hipchat_client = HipChat::Client.new(hipchat_api_token)
 
+# client = Octokit::Client.new(oauth_token: ENV['GITHUB_TOKEN'])
+
 get '/' do
   puts "Hello World!"
 end
@@ -17,6 +19,7 @@ get '/post_build' do
   puts params
 end
 
-post '/post' do
-  puts params
+post '/github_callback' do
+  payload = JSON.parse(params[:payload])
+  puts payload
 end
