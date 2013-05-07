@@ -31,6 +31,8 @@ post '/build_result' do
   build_result['target_url'] = target_url
 
   client.create_status(repo, sha, state, target_url: target_url)
+
+  "POSTED BUILD RESULT #{state} #{sha} #{target_url}"
 end
 
 post '/github_callback' do
@@ -48,5 +50,9 @@ post '/github_callback' do
     target_url = build_result['target_url']
 
     client.create_status(repo, sha, state, target_url: target_url)
+
+    "PULL REQUEST OPEN EVENT #{state} #{sha} #{target_url}"
+  else
+    "IGNORED"
   end
 end
